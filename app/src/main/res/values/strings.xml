@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Stop Covid Detector</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="dBm">%1$d dBm</string>
+
+    <!-- Preference Titles -->
+</resources>
