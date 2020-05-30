@@ -14,23 +14,13 @@ import kotlinx.android.synthetic.main.fragment_item.view.*
 import java.text.DateFormat.getTimeInstance
 import java.util.*
 
-fun printB(bytes: ByteArray): String? {
-    val sb = StringBuilder()
-    sb.append("0x")
-    for (b in bytes) {
-        sb.append(String.format("%02X", b))
-    }
-    return sb.toString()
-}
-
 class MyItemRecyclerViewAdapter(
     private val mValues: List<ScanResult>
 ) : RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder>() {
 
     private val mOnClickListener: View.OnClickListener
 
-    private val serviceUuids =
-        BuildConfig.SERVICE_UUIDS.map { value -> ParcelUuid(UUID.fromString(value)) }
+    private val serviceUuid = ParcelUuid(UUID.fromString(BuildConfig.SERVICE_UUID))
 
     init {
         mOnClickListener = View.OnClickListener { v ->
@@ -52,10 +42,8 @@ class MyItemRecyclerViewAdapter(
 
         var serviceData: ByteArray? = null
 
-        for (serviceUuid in serviceUuids) {
-            if (item.scanRecord?.getServiceData(serviceUuid) != null) {
-                serviceData = item.scanRecord?.getServiceData(serviceUuid)
-            }
+        if (item.scanRecord?.getServiceData(serviceUuid) != null) {
+            serviceData = item.scanRecord?.getServiceData(serviceUuid)
         }
 
         if (serviceData != null) {

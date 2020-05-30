@@ -24,13 +24,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
-
 class MainActivity : AppCompatActivity() {
-    private lateinit var prefs: SharedPreferences
-
-    var serviceUuids: List<UUID> =
-        (BuildConfig.SERVICE_UUIDS).map { value -> UUID.fromString(value) }
-
     private var listening: Boolean = false
     private val maxSize: Int = 50
 
@@ -86,9 +80,19 @@ class MainActivity : AppCompatActivity() {
         .setReportDelay(0L)
         .build()
 
-    var scanFilters = BuildConfig.SERVICE_UUIDS.map { value ->
-        ScanFilter.Builder().setServiceUuid(ParcelUuid(UUID.fromString(value))).build()
-    }
+    val BACKGROUND_SERVICE_MANUFACTURER_DATA: String = BuildConfig.BACKGROUND_SERVICE_MANUFACTURER_DATA
+    val backgroundServiceManufacturerDataIOS = BACKGROUND_SERVICE_MANUFACTURER_DATA.splitToByteArray()
+
+    var scanFilters: List<ScanFilter> = listOf(
+        ScanFilter.Builder().setServiceUuid(ParcelUuid(UUID.fromString(BuildConfig.SERVICE_UUID))).build(),
+        ScanFilter.Builder()
+            .setServiceUuid(null)
+            .setManufacturerData(
+                BuildConfig.APPLE_MANUFACTURER_ID,
+                backgroundServiceManufacturerDataIOS
+            )
+            .build()
+    )
 
     override fun onSaveInstanceState(savedInstanceState: Bundle) {
         super.onSaveInstanceState(savedInstanceState)

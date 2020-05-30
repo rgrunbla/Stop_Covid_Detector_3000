@@ -24,12 +24,11 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField "String[]", "SERVICE_UUIDS",
-                "{" +
-                        "\"910c7798-9f3a-11ea-bb37-0242ac130002\"," +
-                        "\"0000b81d-0000-1000-8000-00805f9b34fb\"," +
-                        "\"d61f4f27-3d6b-4b04-9e46-c9d2ea617f62\"" +
-                        "}"
+
+        buildConfigField "String", "SERVICE_UUID", '"0000fd64-0000-1000-8000-00805f9b34fb"'
+        buildConfigField "Integer", "APPLE_MANUFACTURER_ID", "76"
+        buildConfigField "String", "CHARACTERISTIC_UUID", '"a8f12d00-ee67-478b-b95f-65d599407756"'
+        buildConfigField "String", "BACKGROUND_SERVICE_MANUFACTURER_DATA", '"1.0.0.0.0.0.0.0.0.0.0.8.0.0.0.0.0"'
     }
 
     buildTypes {
